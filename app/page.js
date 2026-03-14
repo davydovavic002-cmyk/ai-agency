@@ -1,8 +1,12 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import { motion, useSpring, useMotionValue } from 'framer-motion';
 
-const AgencySite = () => {
+export default function AgencySite() {
+  // Защита от ошибок гидратации (когда серверный и клиентский рендер не совпадают)
+  const [mounted, setMounted] = useState(false);
+
   // Настройка кастомного курсора
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -12,13 +16,19 @@ const AgencySite = () => {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    setMounted(true);
     const moveCursor = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
     };
     window.addEventListener('mousemove', moveCursor);
     return () => window.removeEventListener('mousemove', moveCursor);
-  }, []);
+  }, [cursorX, cursorY]);
+
+  // Если компонент еще не смонтирован в браузере, рендерим пустой фон
+  if (!mounted) {
+    return <div className="min-h-screen bg-[#050505]" />;
+  }
 
   return (
     <div className="min-h-screen bg-[#050505] text-[#f0f0f0] font-sans selection:bg-cyan-500/30 overflow-x-hidden">
@@ -68,9 +78,11 @@ const AgencySite = () => {
             whileHover={{ scale: 0.99 }}
             className="md:col-span-2 md:row-span-2 bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-[2rem] flex flex-col justify-between"
           >
-            <h3 className="text-3xl font-light italic">AI-Influencers</h3>
-            <p className="text-gray-400 text-sm mt-4">Создание цифровых душ, которые не знают границ и усталости.</p>
-            <div className="mt-12 text-6xl opacity-10">未来</div>
+            <h3 className="text-3xl font-light italic text-white">AI-Influencers</h3>
+            <p className="text-gray-400 text-sm mt-4">
+              Создание цифровых душ, которые не знают границ и усталости.
+            </p>
+            <div className="mt-12 text-6xl opacity-10 text-white">未来</div>
           </motion.div>
 
           {/* Web Card */}
@@ -78,8 +90,8 @@ const AgencySite = () => {
             whileHover={{ scale: 0.99 }}
             className="md:col-span-2 bg-[#111] border border-white/5 p-8 rounded-[2rem] flex items-center justify-between overflow-hidden relative"
           >
-            <div>
-              <h3 className="text-xl tracking-widest uppercase">Web Lab</h3>
+            <div className="z-10">
+              <h3 className="text-xl tracking-widest uppercase text-white">Web Lab</h3>
               <p className="text-gray-500 text-xs mt-2">Next-gen UI/UX in Asian Style</p>
             </div>
             <div className="w-24 h-24 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-full blur-xl" />
@@ -87,11 +99,11 @@ const AgencySite = () => {
 
           {/* SMM Card */}
           <div className="bg-white/5 border border-white/10 p-8 rounded-[2rem]">
-            <h3 className="text-lg">Neural SMM</h3>
+            <h3 className="text-lg text-white">Neural SMM</h3>
             <div className="mt-4 h-1 w-full bg-white/10 rounded-full overflow-hidden">
               <motion.div 
                 animate={{ x: [-100, 200] }} 
-                transition={{ duration: 2, repeat: Infinity }} 
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }} 
                 className="h-full w-20 bg-cyan-400"
               />
             </div>
@@ -100,7 +112,7 @@ const AgencySite = () => {
           {/* Bots Card */}
           <div className="bg-white/5 border border-white/10 p-8 rounded-[2rem] flex flex-col justify-center items-center text-center">
              <span className="text-xs text-cyan-400 mb-2">● Online</span>
-             <h3 className="text-lg uppercase">AI-Bots</h3>
+             <h3 className="text-lg uppercase text-white">AI-Bots</h3>
           </div>
 
         </div>
@@ -112,6 +124,4 @@ const AgencySite = () => {
       </footer>
     </div>
   );
-};
-
-export default AgencySite;
+}
