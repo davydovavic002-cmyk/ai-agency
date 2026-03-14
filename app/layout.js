@@ -1,3 +1,5 @@
+import './globals.css'
+
 export const metadata = {
   title: 'Neon Zen Agency',
   description: 'AI & Design Agency',
