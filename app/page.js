@@ -21,46 +21,167 @@ export default function Page() {
     return () => window.removeEventListener('mousemove', moveCursor);
   }, [cursorX, cursorY]);
 
-  if (!mounted) return <div className="min-h-screen bg-[#050505]" />;
+  if (!mounted) return <div style={{ background: '#050505', minHeight: '100vh' }} />;
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#f0f0f0] overflow-x-hidden font-sans">
+    <div style={styles.container}>
+      {/* Custom Cursor */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 bg-white rounded-full mix-blend-difference pointer-events-none z-[9999] hidden md:block"
-        style={{ translateX: cursorXSpring, translateY: cursorYSpring, left: -16, top: -16 }}
+        style={{
+          ...styles.cursor,
+          translateX: cursorXSpring,
+          translateY: cursorYSpring,
+        }}
       />
 
-      <section className="relative min-h-screen flex flex-col items-center justify-center p-6 text-center">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-[20%] left-[10%] w-72 h-72 bg-cyan-500/10 rounded-full blur-[120px]" />
-          <div className="absolute bottom-[20%] right-[10%] w-96 h-96 bg-purple-500/10 rounded-full blur-[150px]" />
-        </div>
-        
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <span className="text-[10px] uppercase tracking-[0.8em] text-cyan-400 mb-6 block">Future of Brand Identity</span>
-          <h1 className="text-6xl md:text-[100px] font-bold tracking-tighter mb-8">
-            NEON<span className="italic font-light opacity-50">ZEN</span>
+      {/* Background Glows */}
+      <div style={styles.glow1} />
+      <div style={styles.glow2} />
+
+      {/* Hero Section */}
+      <section style={styles.hero}>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 1 }}
+        >
+          <span style={styles.subtitle}>The Future of Brand Identity</span>
+          <h1 style={styles.title}>
+            NEON<span style={{ fontStyle: 'italic', fontWeight: '300', opacity: 0.5 }}>ZEN</span>
           </h1>
-          <p className="max-w-md mx-auto text-gray-400 text-sm uppercase tracking-widest leading-relaxed">
-            AI-Driven Agency. Asia-Inspired Design.
-          </p>
+          <p style={styles.description}>AI-Driven Agency. Asia-Inspired Design.</p>
         </motion.div>
       </section>
 
-      <section className="p-6 md:p-20 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 p-10 rounded-[2rem]">
-          <h3 className="text-2xl italic mb-4">AI-Influencers</h3>
-          <p className="text-gray-400 text-sm">Цифровые души, которые не знают усталости.</p>
+      {/* Bento Grid */}
+      <section style={styles.grid}>
+        <div style={styles.cardLarge}>
+          <h3 style={styles.cardTitle}>AI-Influencers</h3>
+          <p style={styles.cardText}>Цифровые души, которые не знают усталости.</p>
+          <div style={styles.kanji}>未来</div>
         </div>
-        <div className="bg-[#111] border border-white/5 p-10 rounded-[2rem]">
-          <h3 className="text-2xl uppercase tracking-tighter mb-4">Web Lab</h3>
-          <p className="text-gray-400 text-sm">Next-gen UI/UX. Asian Aesthetic.</p>
+        <div style={styles.cardSmall}>
+          <h3 style={styles.cardTitleSmall}>Web Lab</h3>
+          <p style={styles.cardText}>Next-gen UI/UX in Asian Style</p>
         </div>
       </section>
 
-      <footer className="p-10 text-center text-[10px] tracking-[0.5em] text-gray-600 border-t border-white/5">
-        EST. 2026 • BASED IN BATUMI
+      <footer style={styles.footer}>
+        EST. 2026 • BASED IN BATUMI • SERVING THE WORLD
       </footer>
     </div>
   );
 }
+
+// Прямые стили, которые точно сработают
+const styles = {
+  container: {
+    backgroundColor: '#050505',
+    color: '#f0f0f0',
+    minHeight: '100vh',
+    fontFamily: 'system-ui, -apple-system, sans-serif',
+    position: 'relative',
+    overflow: 'hidden',
+    margin: 0,
+    padding: 0,
+  },
+  cursor: {
+    position: 'fixed',
+    top: -10,
+    left: -10,
+    width: '20px',
+    height: '20px',
+    backgroundColor: 'white',
+    borderRadius: '50%',
+    mixBlendMode: 'difference',
+    pointerEvents: 'none',
+    zIndex: 9999,
+  },
+  glow1: {
+    position: 'absolute',
+    top: '10%',
+    left: '5%',
+    width: '400px',
+    height: '400px',
+    backgroundColor: 'rgba(0, 255, 255, 0.05)',
+    borderRadius: '50%',
+    filter: 'blur(100px)',
+  },
+  glow2: {
+    position: 'absolute',
+    bottom: '10%',
+    right: '5%',
+    width: '500px',
+    height: '500px',
+    backgroundColor: 'rgba(168, 85, 247, 0.05)',
+    borderRadius: '50%',
+    filter: 'blur(120px)',
+  },
+  hero: {
+    height: '80vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    padding: '0 20px',
+  },
+  subtitle: {
+    fontSize: '10px',
+    letterSpacing: '0.8em',
+    color: '#22d3ee',
+    textTransform: 'uppercase',
+    display: 'block',
+    marginBottom: '20px',
+  },
+  title: {
+    fontSize: 'clamp(3rem, 10vw, 8rem)',
+    margin: '0 0 20px 0',
+    letterSpacing: '-0.05em',
+    fontWeight: '600',
+  },
+  description: {
+    fontSize: '12px',
+    letterSpacing: '0.3em',
+    color: '#888',
+    textTransform: 'uppercase',
+  },
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gap: '20px',
+    padding: '40px',
+    maxWidth: '1200px',
+    margin: '0 auto',
+  },
+  cardLarge: {
+    background: 'rgba(255, 255, 255, 0.03)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    borderRadius: '32px',
+    padding: '40px',
+    minHeight: '300px',
+    position: 'relative',
+    backdropFilter: 'blur(10px)',
+  },
+  cardSmall: {
+    background: '#111',
+    border: '1px solid rgba(255, 255, 255, 0.05)',
+    borderRadius: '32px',
+    padding: '40px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  cardTitle: { fontSize: '2rem', fontStyle: 'italic', margin: 0 },
+  cardTitleSmall: { fontSize: '1.2rem', textTransform: 'uppercase', margin: 0, letterSpacing: '0.1em' },
+  cardText: { color: '#666', fontSize: '14px', marginTop: '10px' },
+  kanji: { position: 'absolute', bottom: '20px', right: '30px', fontSize: '4rem', opacity: 0.05 },
+  footer: {
+    padding: '60px 20px',
+    textAlign: 'center',
+    fontSize: '9px',
+    letterSpacing: '0.5em',
+    color: '#444',
+    borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+  },
+};
