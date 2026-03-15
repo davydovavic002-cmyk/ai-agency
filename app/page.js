@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useSpring, useMotionValue } from 'framer-motion';
 
-export default function Page() {
+export default function FinalAgencySite() {
   const [mounted, setMounted] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -26,162 +26,87 @@ export default function Page() {
   return (
     <div style={styles.container}>
       {/* Custom Cursor */}
-      <motion.div
-        style={{
-          ...styles.cursor,
-          translateX: cursorXSpring,
-          translateY: cursorYSpring,
-        }}
-      />
-
-      {/* Background Glows */}
-      <div style={styles.glow1} />
-      <div style={styles.glow2} />
+      <motion.div style={{ ...styles.cursor, translateX: cursorXSpring, translateY: cursorYSpring }} />
 
       {/* Hero Section */}
       <section style={styles.hero}>
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 1 }}
-        >
-          <span style={styles.subtitle}>The Future of Brand Identity</span>
-          <h1 style={styles.title}>
-            NEON<span style={{ fontStyle: 'italic', fontWeight: '300', opacity: 0.5 }}>ZEN</span>
-          </h1>
-          <p style={styles.description}>AI-Driven Agency. Asia-Inspired Design.</p>
+        <div style={styles.glow1} />
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2 }}>
+          <span style={styles.subtitle}>// DIGITAL ZEN GARDEN //</span>
+          <h1 style={styles.title}>NEON<span style={{ fontWeight: '200', opacity: 0.6 }}>ZEN</span></h1>
+          <p style={styles.heroDesc}>Мы объединяем эстетику азиатского минимализма с мощью нейросетей для создания брендов будущего.</p>
         </motion.div>
       </section>
 
-      {/* Bento Grid */}
-      <section style={styles.grid}>
-        <div style={styles.cardLarge}>
-          <h3 style={styles.cardTitle}>AI-Influencers</h3>
-          <p style={styles.cardText}>Цифровые души, которые не знают усталости.</p>
-          <div style={styles.kanji}>未来</div>
+      {/* Video Showcase Section */}
+      <section style={styles.section}>
+        <h2 style={styles.sectionTitle}>Showcase <span style={styles.italic}>— Visual Soul</span></h2>
+        <div style={styles.videoPlaceholder}>
+           <div style={styles.videoOverlay}>
+              <p style={{ letterSpacing: '0.5em', fontSize: '12px' }}>[ VIDEO PRESENTATION ]</p>
+           </div>
+           {/* Сюда мы вставим видео после генерации */}
+           <div style={{ color: '#444', textAlign: 'center' }}>Видео генерируется...</div>
         </div>
-        <div style={styles.cardSmall}>
-          <h3 style={styles.cardTitleSmall}>Web Lab</h3>
-          <p style={styles.cardText}>Next-gen UI/UX in Asian Style</p>
+      </section>
+
+      {/* Services Bento Grid */}
+      <section style={styles.gridSection}>
+        <div style={styles.bentoGrid}>
+          <div style={styles.cardLarge}>
+             <span style={styles.cardTag}>01</span>
+             <h3 style={styles.cardTitle}>AI-Influencers</h3>
+             <p style={styles.cardText}>Разработка виртуальных амбассадоров: от внешности до уникального голоса и характера.</p>
+             <div style={styles.kanji}>影響</div>
+          </div>
+          <div style={styles.cardSmall}>
+             <span style={styles.cardTag}>02</span>
+             <h3 style={styles.cardTitleSmall}>Neural Identity</h3>
+             <p style={styles.cardText}>Брендинг, созданный алгоритмами на основе культурных кодов Японии и Кореи.</p>
+          </div>
+          <div style={styles.cardSmallAlt}>
+             <span style={styles.cardTag}>03</span>
+             <h3 style={styles.cardTitleSmall}>Web Zen</h3>
+             <p style={styles.cardText}>Интерфейсы, которые ощущаются как медитация.</p>
+          </div>
+          <div style={styles.cardWide}>
+             <h3 style={styles.cardTitleSmall}>Ready for the Future?</h3>
+             <button style={styles.button}>Связаться в Telegram</button>
+          </div>
         </div>
       </section>
 
       <footer style={styles.footer}>
-        EST. 2026 • BASED IN BATUMI • SERVING THE WORLD
+        <p>© 2026 NEON ZEN. BASED IN BATUMI. OPERATING GLOBALLY.</p>
       </footer>
     </div>
   );
 }
 
-// Прямые стили, которые точно сработают
 const styles = {
-  container: {
-    backgroundColor: '#050505',
-    color: '#f0f0f0',
-    minHeight: '100vh',
-    fontFamily: 'system-ui, -apple-system, sans-serif',
-    position: 'relative',
-    overflow: 'hidden',
-    margin: 0,
-    padding: 0,
-  },
-  cursor: {
-    position: 'fixed',
-    top: -10,
-    left: -10,
-    width: '20px',
-    height: '20px',
-    backgroundColor: 'white',
-    borderRadius: '50%',
-    mixBlendMode: 'difference',
-    pointerEvents: 'none',
-    zIndex: 9999,
-  },
-  glow1: {
-    position: 'absolute',
-    top: '10%',
-    left: '5%',
-    width: '400px',
-    height: '400px',
-    backgroundColor: 'rgba(0, 255, 255, 0.05)',
-    borderRadius: '50%',
-    filter: 'blur(100px)',
-  },
-  glow2: {
-    position: 'absolute',
-    bottom: '10%',
-    right: '5%',
-    width: '500px',
-    height: '500px',
-    backgroundColor: 'rgba(168, 85, 247, 0.05)',
-    borderRadius: '50%',
-    filter: 'blur(120px)',
-  },
-  hero: {
-    height: '80vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-    padding: '0 20px',
-  },
-  subtitle: {
-    fontSize: '10px',
-    letterSpacing: '0.8em',
-    color: '#22d3ee',
-    textTransform: 'uppercase',
-    display: 'block',
-    marginBottom: '20px',
-  },
-  title: {
-    fontSize: 'clamp(3rem, 10vw, 8rem)',
-    margin: '0 0 20px 0',
-    letterSpacing: '-0.05em',
-    fontWeight: '600',
-  },
-  description: {
-    fontSize: '12px',
-    letterSpacing: '0.3em',
-    color: '#888',
-    textTransform: 'uppercase',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '20px',
-    padding: '40px',
-    maxWidth: '1200px',
-    margin: '0 auto',
-  },
-  cardLarge: {
-    background: 'rgba(255, 255, 255, 0.03)',
-    border: '1px solid rgba(255, 255, 255, 0.1)',
-    borderRadius: '32px',
-    padding: '40px',
-    minHeight: '300px',
-    position: 'relative',
-    backdropFilter: 'blur(10px)',
-  },
-  cardSmall: {
-    background: '#111',
-    border: '1px solid rgba(255, 255, 255, 0.05)',
-    borderRadius: '32px',
-    padding: '40px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  cardTitle: { fontSize: '2rem', fontStyle: 'italic', margin: 0 },
-  cardTitleSmall: { fontSize: '1.2rem', textTransform: 'uppercase', margin: 0, letterSpacing: '0.1em' },
-  cardText: { color: '#666', fontSize: '14px', marginTop: '10px' },
-  kanji: { position: 'absolute', bottom: '20px', right: '30px', fontSize: '4rem', opacity: 0.05 },
-  footer: {
-    padding: '60px 20px',
-    textAlign: 'center',
-    fontSize: '9px',
-    letterSpacing: '0.5em',
-    color: '#444',
-    borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-  },
+  container: { backgroundColor: '#050505', color: '#fff', fontFamily: 'Inter, sans-serif', overflowX: 'hidden' },
+  cursor: { position: 'fixed', top: -10, left: -10, width: '20px', height: '20px', backgroundColor: '#fff', borderRadius: '50%', mixBlendMode: 'difference', pointerEvents: 'none', zIndex: 9999 },
+  hero: { height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', position: 'relative' },
+  glow1: { position: 'absolute', width: '60vw', height: '60vw', background: 'radial-gradient(circle, rgba(0,255,255,0.08) 0%, transparent 70%)', top: '-10%', left: '-10%', zIndex: 0 },
+  subtitle: { fontSize: '10px', letterSpacing: '0.8em', color: '#00ffff', marginBottom: '20px', display: 'block' },
+  title: { fontSize: 'clamp(4rem, 15vw, 10rem)', margin: 0, letterSpacing: '-0.04em' },
+  heroDesc: { maxWidth: '600px', fontSize: '14px', color: '#888', textTransform: 'uppercase', letterSpacing: '0.2em', lineHeight: '1.8', marginTop: '20px' },
+  section: { padding: '100px 5vw' },
+  sectionTitle: { fontSize: '40px', fontWeight: '300', marginBottom: '50px', borderLeft: '1px solid #00ffff', paddingLeft: '20px' },
+  italic: { fontStyle: 'italic', opacity: 0.5 },
+  videoPlaceholder: { width: '100%', height: '60vh', background: '#111', borderRadius: '40px', border: '1px solid #222', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' },
+  videoOverlay: { position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.8))', display: 'flex', alignItems: 'flex-end', padding: '40px', zIndex: 2 },
+  gridSection: { padding: '0 5vw 100px 5vw' },
+  bentoGrid: { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' },
+  cardLarge: { gridColumn: 'span 2', gridRow: 'span 2', background: '#111', borderRadius: '40px', padding: '40px', border: '1px solid #222', position: 'relative' },
+  cardSmall: { gridColumn: 'span 2', background: 'rgba(255,255,255,0.03)', borderRadius: '40px', padding: '40px', border: '1px solid #222' },
+  cardSmallAlt: { gridColumn: 'span 2', background: '#0a0a0a', borderRadius: '40px', padding: '40px', border: '1px solid #222' },
+  cardWide: { gridColumn: 'span 4', background: '#00ffff', color: '#000', borderRadius: '40px', padding: '60px', textAlign: 'center' },
+  cardTitle: { fontSize: '32px', marginBottom: '20px' },
+  cardTitleSmall: { fontSize: '20px', textTransform: 'uppercase', letterSpacing: '0.1em' },
+  cardTag: { fontSize: '10px', opacity: 0.5, marginBottom: '10px', display: 'block' },
+  cardText: { color: '#888', fontSize: '14px', lineHeight: '1.6' },
+  kanji: { position: 'absolute', bottom: '20px', right: '40px', fontSize: '100px', opacity: 0.03 },
+  button: { background: '#000', color: '#fff', border: 'none', padding: '15px 40px', borderRadius: '100px', marginTop: '30px', cursor: 'pointer', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase' },
+  footer: { padding: '50px', textAlign: 'center', color: '#444', fontSize: '10px', letterSpacing: '0.3em' }
 };
